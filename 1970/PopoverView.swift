@@ -1,56 +1,99 @@
 import SwiftUI
 
-struct PopoverView: View {
-    @ObservedObject var settings: Settings
+/// Staged copy of the settings edited in the popover. Applied to the real
+/// `Settings` only when the user clicks OK; Cancel discards it.
+private struct DraftSettings: Equatable {
+    var clock1: ClockSettings
+    var clock2: ClockSettings
+    var epochEnabled: Bool
+    var launchAtLogin: Bool
 
+    init(_ settings: Settings) {
+        clock1 = settings.clock1
+        clock2 = settings.clock2
+        epochEnabled = settings.epochEnabled
+        launchAtLogin = LaunchAtLogin.isEnabled
+    }
+
+    var enabledComponentCount: Int {
+        (clock1.enabled ? 1 : 0) + (clock2.enabled ? 1 : 0) + (epochEnabled ? 1 : 0)
+    }
+}
+
+struct PopoverView: View {
+    let settings: Settings
+    let close: () -> Void
+
+    @State private var draft: DraftSettings
+    /// Snapshot of the settings when the panel opened; OK is enabled only
+    /// once the draft differs from this.
+    @State private var baseline: DraftSettings
     @State private var offsets: [Int] = []
-    @State private var launchAtLogin = LaunchAtLogin.isEnabled
+
+    init(settings: Settings, close: @escaping () -> Void) {
+        self.settings = settings
+        self.close = close
+        let snapshot = DraftSettings(settings)
+        _draft = State(initialValue: snapshot)
+        _baseline = State(initialValue: snapshot)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             ClockSection(
                 title: "Clock 1",
-                clock: $settings.clock1,
+                clock: $draft.clock1,
                 offsets: offsets,
-                soleEnabledComponent: isSole(\.clock1.enabled))
+                soleEnabledComponent: draft.clock1.enabled && draft.enabledComponentCount == 1)
 
             ClockSection(
                 title: "Clock 2",
-                clock: $settings.clock2,
+                clock: $draft.clock2,
                 offsets: offsets,
-                soleEnabledComponent: isSole(\.clock2.enabled))
+                soleEnabledComponent: draft.clock2.enabled && draft.enabledComponentCount == 1)
 
-            Toggle("Show Unix Time", isOn: $settings.epochEnabled)
-                .disabled(settings.epochEnabled && settings.enabledComponentCount == 1)
+            Toggle("Show Unix Time", isOn: $draft.epochEnabled)
+                .disabled(draft.epochEnabled && draft.enabledComponentCount == 1)
 
             Divider()
 
-            Toggle("Launch at Login", isOn: $launchAtLogin)
-                .onChange(of: launchAtLogin) { _, newValue in
-                    LaunchAtLogin.setEnabled(newValue)
-                    launchAtLogin = LaunchAtLogin.isEnabled
-                }
+            Toggle("Launch at Login", isOn: $draft.launchAtLogin)
 
-            Button("Quit 1970") {
-                NSApplication.shared.terminate(nil)
+            HStack {
+                Button("Quit") { NSApplication.shared.terminate(nil) }
+                Spacer()
+                Button("Cancel") { close() }
+                    .keyboardShortcut(.cancelAction)
+                Button("OK") { apply(); close() }
+                    .keyboardShortcut(.defaultAction)
+                    .disabled(draft == baseline)
             }
-            .keyboardShortcut("q")
         }
         .padding(14)
         .frame(width: 260)
-        .onAppear(perform: refreshOffsets)
+        .onAppear {
+            // Re-sync from the source of truth each time the panel opens, so a
+            // prior Cancel is fully discarded and OK starts disabled again.
+            let snapshot = DraftSettings(settings)
+            draft = snapshot
+            baseline = snapshot
+            refreshOffsets()
+        }
     }
 
-    /// True when `keyPath` is currently the only enabled component, so its
-    /// toggle should be locked on (at least one must stay enabled).
-    private func isSole(_ keyPath: KeyPath<Settings, Bool>) -> Bool {
-        settings[keyPath: keyPath] && settings.enabledComponentCount == 1
+    private func apply() {
+        settings.clock1 = draft.clock1
+        settings.clock2 = draft.clock2
+        settings.epochEnabled = draft.epochEnabled
+        if draft.launchAtLogin != LaunchAtLogin.isEnabled {
+            LaunchAtLogin.setEnabled(draft.launchAtLogin)
+        }
     }
 
     private func refreshOffsets() {
         offsets = availableOffsets(
             at: Date(),
-            including: settings.clock1.offsetSeconds, settings.clock2.offsetSeconds)
+            including: draft.clock1.offsetSeconds, draft.clock2.offsetSeconds)
     }
 }
 
@@ -73,6 +116,7 @@ private struct ClockSection: View {
                         Text("UTC Offset").tag(ClockSource.utcOffset)
                     }
                     .pickerStyle(.segmented)
+                    .labelsHidden()
 
                     if clock.source == .utcOffset {
                         Picker("Offset", selection: $clock.offsetSeconds) {
@@ -80,6 +124,7 @@ private struct ClockSection: View {
                                 Text(formatOffset(seconds: seconds)).tag(seconds)
                             }
                         }
+                        .labelsHidden()
                     }
 
                     Toggle("Show Date", isOn: $clock.showDate)
