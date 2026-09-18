@@ -40,6 +40,16 @@ struct PopoverView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 1) {
+                Text("1970")
+                    .font(.headline)
+                Text("UTC and Unix time in your menu bar")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Divider()
+
             ClockSection(
                 title: "Clock 1",
                 clock: $draft.clock1,
