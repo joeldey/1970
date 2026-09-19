@@ -31,8 +31,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
         popover.behavior = .transient
         popover.delegate = self
-        popover.contentViewController = NSHostingController(
-            rootView: PopoverView(settings: settings) { [weak self] in self?.popover.performClose(nil) })
 
         updateTitle()
 
@@ -61,6 +59,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         if popover.isShown {
             popover.performClose(nil)
         } else {
+            // Rebuild the content each time so the panel's staged-edit state
+            // starts fresh from the saved settings (a prior Cancel is discarded).
+            popover.contentViewController = NSHostingController(
+                rootView: PopoverView(settings: settings) { [weak self] in self?.popover.performClose(nil) })
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
             popover.contentViewController?.view.window?.makeKey()
         }
