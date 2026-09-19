@@ -46,6 +46,7 @@ struct PopoverView: View {
                 Text("UTC and Unix time in your menu bar")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             Divider()
