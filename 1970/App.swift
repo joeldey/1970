@@ -53,7 +53,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     }
 
     func popoverDidClose(_ notification: Notification) {
-        statusItem?.length = NSStatusItem.variableLength
+        // Reflect just-applied settings immediately rather than on the next tick.
         updateTitle()
     }
 
@@ -62,11 +62,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         if popover.isShown {
             popover.performClose(nil)
         } else {
-            // Pin the item's width while the panel is open so the popover's
-            // anchor can't shift; the title keeps ticking underneath. Settings
-            // only change on OK, which closes the panel, so the pinned width
-            // always fits the ticking title.
-            statusItem?.length = button.frame.width
+            // The title keeps ticking while the panel is open; its width stays
+            // constant (monospaced digits, and settings only change on OK,
+            // which closes the panel), so the popover's anchor cannot drift.
             // Rebuild the content each time so the panel's staged-edit state
             // starts fresh from the saved settings (a prior Cancel is discarded).
             popover.contentViewController = NSHostingController(
