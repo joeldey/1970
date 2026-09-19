@@ -36,11 +36,6 @@ final class Settings: ObservableObject {
         epochEnabled = defaults.object(forKey: "epochEnabled") as? Bool ?? true
     }
 
-    /// At least one component must remain enabled at all times.
-    var enabledComponentCount: Int {
-        (clock1.enabled ? 1 : 0) + (clock2.enabled ? 1 : 0) + (epochEnabled ? 1 : 0)
-    }
-
     private func store<T: Encodable>(_ value: T, forKey key: String) {
         if let data = try? JSONEncoder().encode(value) {
             defaults.set(data, forKey: key)

@@ -28,14 +28,19 @@ struct PopoverView: View {
     /// Snapshot of the settings when the panel opened; OK is enabled only
     /// once the draft differs from this.
     @State private var baseline: DraftSettings
-    @State private var offsets: [Int] = []
+    @State private var offsets: [Int]
 
+    /// A fresh PopoverView is constructed on every open (see AppDelegate), so
+    /// initial values here are always current.
     init(settings: Settings, close: @escaping () -> Void) {
         self.settings = settings
         self.close = close
         let snapshot = DraftSettings(settings)
         _draft = State(initialValue: snapshot)
         _baseline = State(initialValue: snapshot)
+        _offsets = State(initialValue: availableOffsets(
+            at: Date(),
+            including: snapshot.clock1.offsetSeconds, snapshot.clock2.offsetSeconds))
     }
 
     var body: some View {
@@ -83,14 +88,6 @@ struct PopoverView: View {
         }
         .padding(14)
         .frame(width: 260)
-        .onAppear {
-            // Re-sync from the source of truth each time the panel opens, so a
-            // prior Cancel is fully discarded and OK starts disabled again.
-            let snapshot = DraftSettings(settings)
-            draft = snapshot
-            baseline = snapshot
-            refreshOffsets()
-        }
     }
 
     private func apply() {
@@ -102,11 +99,6 @@ struct PopoverView: View {
         }
     }
 
-    private func refreshOffsets() {
-        offsets = availableOffsets(
-            at: Date(),
-            including: draft.clock1.offsetSeconds, draft.clock2.offsetSeconds)
-    }
 }
 
 private struct ClockSection: View {
