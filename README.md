@@ -6,9 +6,11 @@ A tiny, native macOS menu-bar app that shows one or two clocks — local or a fi
 
 - Two clock slots, each with optional date, seconds, and offset label
 - Live Unix epoch seconds, fixed-width digits
-- Launch at login · localized in 9 languages
+- Launch at login
+- Localized in 9 languages
 
 **Build:** open `1970.xcodeproj` in Xcode and Run.
+
 **Icon:** regenerate from `icon-source.png` with `Tools/make-appicon.sh`.
 
 [MIT License](LICENSE.md)
