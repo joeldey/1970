@@ -34,23 +34,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
         updateTitle()
 
-        let timer = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
+        // Fire on whole-second boundaries so the display flips in step with
+        // the native menu-bar clock.
+        let nextSecond = Date(timeIntervalSince1970: Date().timeIntervalSince1970.rounded(.down) + 1)
+        let timer = Timer(fire: nextSecond, interval: 1.0, repeats: true) { [weak self] _ in
             self?.updateTitle()
         }
+        timer.tolerance = 0.05
         // .common so the title keeps ticking while menus are open.
         RunLoop.main.add(timer, forMode: .common)
         self.timer = timer
     }
 
     private func updateTitle() {
-        // While the popover is open, keep the item width fixed. A settings
-        // change can change the title width, which would slide the variable-
-        // width status item out from under the popover. Refresh on close.
-        guard !popover.isShown else { return }
-        statusItem?.button?.title = menuBarString(settings, at: Date())
+        guard let button = statusItem?.button else { return }
+        let title = menuBarString(settings, at: Date())
+        if button.title != title { button.title = title }
     }
 
     func popoverDidClose(_ notification: Notification) {
+        statusItem?.length = NSStatusItem.variableLength
         updateTitle()
     }
 
@@ -59,6 +62,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         if popover.isShown {
             popover.performClose(nil)
         } else {
+            // Pin the item's width while the panel is open so the popover's
+            // anchor can't shift; the title keeps ticking underneath. Settings
+            // only change on OK, which closes the panel, so the pinned width
+            // always fits the ticking title.
+            statusItem?.length = button.frame.width
             // Rebuild the content each time so the panel's staged-edit state
             // starts fresh from the saved settings (a prior Cancel is discarded).
             popover.contentViewController = NSHostingController(
