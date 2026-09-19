@@ -72,6 +72,7 @@ struct PopoverView: View {
 
             HStack {
                 Button("Quit") { NSApplication.shared.terminate(nil) }
+                    .keyboardShortcut("q")
                 Spacer()
                 Button("Cancel") { close() }
                     .keyboardShortcut(.cancelAction)
