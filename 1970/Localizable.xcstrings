@@ -1,0 +1,147 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "1970" : {
+      "comment" : "App name / brand. Not translated.",
+      "shouldTranslate" : false
+    },
+    "Cancel" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Abbrechen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Cancelar" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Annuler" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "キャンセル" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "取消" } }
+      }
+    },
+    "Launch at Login" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Bei der Anmeldung öffnen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Abrir al iniciar sesión" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ouvrir à la connexion" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ログイン時に開く" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "登录时打开" } }
+      }
+    },
+    "Local" : {
+      "comment" : "Clock source: system local time zone.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Lokal" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Local" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Locale" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ローカル" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "本地" } }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Aceptar" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "好" } }
+      }
+    },
+    "Offset" : {
+      "comment" : "Accessibility label for the UTC offset picker.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Offset" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Desfase" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Décalage" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "オフセット" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "偏移" } }
+      }
+    },
+    "Quit" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Beenden" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Salir" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quitter" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "終了" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "退出" } }
+      }
+    },
+    "Show Clock 1" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Uhr 1 anzeigen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mostrar reloj 1" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Afficher l’horloge 1" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "時計1を表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "显示时钟 1" } }
+      }
+    },
+    "Show Clock 2" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Uhr 2 anzeigen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mostrar reloj 2" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Afficher l’horloge 2" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "時計2を表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "显示时钟 2" } }
+      }
+    },
+    "Show Date" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Datum anzeigen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mostrar fecha" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Afficher la date" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "日付を表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "显示日期" } }
+      }
+    },
+    "Show Offset" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Offset anzeigen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mostrar desfase" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Afficher le décalage" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "オフセットを表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "显示偏移" } }
+      }
+    },
+    "Show Seconds" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Sekunden anzeigen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mostrar segundos" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Afficher les secondes" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "秒を表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "显示秒" } }
+      }
+    },
+    "Show Unix Time" : {
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Unix-Zeit anzeigen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mostrar hora Unix" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Afficher l’heure Unix" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "UNIX時間を表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "显示 Unix 时间" } }
+      }
+    },
+    "Source" : {
+      "comment" : "Accessibility label for the clock source picker.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Quelle" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Fuente" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Source" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ソース" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "来源" } }
+      }
+    },
+    "UTC and Unix time in your menu bar" : {
+      "comment" : "App tagline shown under the name in the settings panel.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "UTC- und Unix-Zeit in der Menüleiste" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Hora UTC y Unix en la barra de menús" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L’heure UTC et Unix dans votre barre des menus" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メニューバーにUTCとUnix時間を表示" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在菜单栏中显示 UTC 和 Unix 时间" } }
+      }
+    },
+    "UTC Offset" : {
+      "comment" : "Clock source: fixed offset from UTC.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "UTC-Offset" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Desfase UTC" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Décalage UTC" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "UTCオフセット" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "UTC 偏移" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -51,13 +51,13 @@ struct PopoverView: View {
             Divider()
 
             ClockSection(
-                title: "Clock 1",
+                label: "Show Clock 1",
                 clock: $draft.clock1,
                 offsets: offsets,
                 soleEnabledComponent: draft.clock1.enabled && draft.enabledComponentCount == 1)
 
             ClockSection(
-                title: "Clock 2",
+                label: "Show Clock 2",
                 clock: $draft.clock2,
                 offsets: offsets,
                 soleEnabledComponent: draft.clock2.enabled && draft.enabledComponentCount == 1)
@@ -108,14 +108,16 @@ struct PopoverView: View {
 }
 
 private struct ClockSection: View {
-    let title: String
+    /// Full localizable label (e.g. "Show Clock 1") rather than an interpolated
+    /// fragment, so it can be translated as a whole phrase.
+    let label: LocalizedStringKey
     @Binding var clock: ClockSettings
     let offsets: [Int]
     let soleEnabledComponent: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Toggle("Show \(title)", isOn: $clock.enabled)
+            Toggle(label, isOn: $clock.enabled)
                 .disabled(soleEnabledComponent)
                 .font(.headline)
 
