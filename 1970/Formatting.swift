@@ -55,6 +55,9 @@ func menuBarString(_ settings: Settings, at date: Date) -> String {
     if settings.clock1.enabled { parts.append(formatClock(settings.clock1, at: date)) }
     if settings.clock2.enabled { parts.append(formatClock(settings.clock2, at: date)) }
     if settings.epochEnabled { parts.append(String(Int(date.timeIntervalSince1970))) }
+    // The UI guarantees at least one component, but if persisted settings ever
+    // say otherwise, an empty title would make the status item unclickable.
+    guard !parts.isEmpty else { return "1970" }
     return parts.joined(separator: " | ")
 }
 
