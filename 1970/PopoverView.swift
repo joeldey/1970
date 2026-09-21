@@ -6,12 +6,14 @@ private struct DraftSettings: Equatable {
     var clock1: ClockSettings
     var clock2: ClockSettings
     var epochEnabled: Bool
+    var separator: Separator
     var launchAtLogin: Bool
 
     init(_ settings: Settings) {
         clock1 = settings.clock1
         clock2 = settings.clock2
         epochEnabled = settings.epochEnabled
+        separator = settings.separator
         launchAtLogin = LaunchAtLogin.isEnabled
     }
 
@@ -71,6 +73,17 @@ struct PopoverView: View {
             Toggle("Show Unix Time", isOn: $draft.epochEnabled)
                 .disabled(draft.epochEnabled && draft.enabledComponentCount == 1)
 
+            // Only meaningful with two or more components to separate.
+            if draft.enabledComponentCount >= 2 {
+                Picker("Separator", selection: $draft.separator) {
+                    ForEach(Separator.allCases, id: \.self) { sep in
+                        Text(sep.glyph).tag(sep)
+                    }
+                }
+                .pickerStyle(.radioGroup)
+                .horizontalRadioGroupLayout()
+            }
+
             Divider()
 
             Toggle("Launch at Login", isOn: $draft.launchAtLogin)
@@ -94,6 +107,7 @@ struct PopoverView: View {
         settings.clock1 = draft.clock1
         settings.clock2 = draft.clock2
         settings.epochEnabled = draft.epochEnabled
+        settings.separator = draft.separator
         if draft.launchAtLogin != LaunchAtLogin.isEnabled {
             LaunchAtLogin.setEnabled(draft.launchAtLogin)
         }

@@ -49,7 +49,8 @@ func formatClock(_ clock: ClockSettings, at date: Date) -> String {
     return result
 }
 
-/// Builds the full menu-bar string: enabled components joined by " | ".
+/// Builds the full menu-bar string: enabled components joined by the
+/// user-selected separator.
 func menuBarString(_ settings: Settings, at date: Date) -> String {
     var parts: [String] = []
     if settings.clock1.enabled { parts.append(formatClock(settings.clock1, at: date)) }
@@ -58,7 +59,7 @@ func menuBarString(_ settings: Settings, at date: Date) -> String {
     // The UI guarantees at least one component, but if persisted settings ever
     // say otherwise, an empty title would make the status item unclickable.
     guard !parts.isEmpty else { return "1970" }
-    return parts.joined(separator: " | ")
+    return parts.joined(separator: settings.separator.joiner)
 }
 
 /// Distinct real UTC offsets (in seconds) currently in use across the system

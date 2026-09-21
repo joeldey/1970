@@ -74,6 +74,19 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "結束" } }
       }
     },
+    "Separator" : {
+      "comment" : "Label for the menu-bar component separator picker.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Trennzeichen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Separador" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Séparateur" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Separatore" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "区切り記号" } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Separador" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "分隔符" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "分隔符" } }
+      }
+    },
     "Show Clock 1" : {
       "localizations" : {
         "de" : { "stringUnit" : { "state" : "translated", "value" : "Uhr 1 anzeigen" } },
